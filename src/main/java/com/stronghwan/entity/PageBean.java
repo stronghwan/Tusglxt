@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PageBean<T>{
 
-    // 当前页面 limit的第一个参数
+    // 当前页面 limit的第一个参数为 (currentPage-1) * pageCount
     private int currentPage;
     // 每页的大小 limit的第二个参数
     private int pageCount;

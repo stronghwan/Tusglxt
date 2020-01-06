@@ -99,8 +99,18 @@
 			  </ul>
 				<p class="text-muted">共${pageList.totalCount}条记录，当前第${pageList.currentPage}页</p>
 			  <ul class="pager">
-			    <li><c:if test="${pageList.currentPage <= 1} ">${pageList.currentPage==1}</c:if><a href="/pageList?currentPage=${pageList.currentPage-1}">上一页</a></li>
-			    <li><a href="/pageList?currentPage=${pageList.currentPage+1}"><下一页></下一页></a></li>
+				  <c:if test="${pageList.currentPage <= 1} ">
+					  <li><a href="/pageList?currentPage=${pageList.currentPage=1}">上一页</a></li>
+				  </c:if>
+				  <c:if test="${pageList.currentPage <= pageList.totalPage && pageList.currentPage > 1}">
+					  <li><a href="/pageList?currentPage=${pageList.currentPage-1}">上一页</a></li>
+				  </c:if>
+			      <c:if test="${pageList.currentPage >= pageList.totalPage}">
+					  <li><a href="/pageList?currentPage=${pageList.currentPage = pageList.totalPage}"><下一页></下一页></a></li>
+				  </c:if>
+			      <c:if test="${pageList.currentPage < pageList.totalPage && pageList.currentPage >= 1}">
+					  <li><a href="/pageList?currentPage=${pageList.currentPage+1}"><下一页></下一页></a></li>
+				  </c:if>
 			  </ul>
 			</nav>
 		</div>
