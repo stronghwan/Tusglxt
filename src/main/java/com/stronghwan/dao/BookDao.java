@@ -3,9 +3,7 @@ package com.stronghwan.dao;
 import com.stronghwan.entity.Book;
 import com.stronghwan.entity.PageBean;
 import com.stronghwan.units.DBUnit;
-import sun.security.pkcs11.Secmod;
 
-import java.security.spec.ECParameterSpec;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

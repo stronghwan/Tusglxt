@@ -22,7 +22,7 @@
 	  <div class='login_title'>
 	    <span>管理员登录</span>
 	  </div>
-	  <form action="/login" method="post">
+	  <form action="{pageContext.request.contextPath}/login" method="post">
 		  <div class='login_fields'>
 			  <div class='login_fields__user'>
 				  <div class='icon'>
