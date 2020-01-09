@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * @TODO
@@ -32,17 +33,15 @@ public class LoginServlet extends HttpServlet {
             BeanUtils.populate(tUser,req.getParameterMap());
             if (StringUtils.isNotBlank(tUser.getUsername()) && StringUtils.isNotBlank(tUser.getPassword())){
                 TUser resultTUser = tUserDao.find(tUser);
-                if (resultTUser != null){
+                if (resultTUser != null && resultTUser.getId() != 0){
                     req.getSession().setAttribute("username",resultTUser.getUsername());
                     req.getRequestDispatcher("/pageList?currentPage=1").forward(req,resp);
+                }else {
+                    resp.sendRedirect("/login.jsp");
                 }
+            }else {
+                resp.sendRedirect("/login.jsp");
             }
-//            Cookie[] cookies = req.getCookies();
-//            Arrays.stream(cookies).forEach(cookie -> {
-//                if (){
-//
-//                }
-//            });
         } catch (Exception e) {
           e.printStackTrace();
         }

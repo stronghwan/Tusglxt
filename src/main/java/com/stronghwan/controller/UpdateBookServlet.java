@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author stronghwan
@@ -21,9 +22,9 @@ public class UpdateBookServlet extends HttpServlet {
         String id = request.getParameter("id");
         Integer bookId = Integer.parseInt(id);
         BookDao bookDao = new BookDao();
-        Book book = bookDao.findById(bookId);
+        List<Book> book = bookDao.findById(bookId);
         if (book != null){
-            request.setAttribute("book",book);
+            request.setAttribute("book",book.get(0));
             request.getRequestDispatcher("/edit.jsp").forward(request,response);
         }
     }

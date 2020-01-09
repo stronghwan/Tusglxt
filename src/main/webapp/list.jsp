@@ -53,6 +53,7 @@
 					<th>删除</th>
 				</tr>
 
+                <c:if test="${pageList != null}">
 				<c:forEach var="ps" items="${pageList.pageData}">
 					<tr>
 						<td>${ps.bookName}</td>
@@ -65,8 +66,9 @@
 						<td><a onclick="confirm('确定要删除吗？')" href="/delete?id=${ps.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
 					</tr>
 				</c:forEach>
-
-				<c:forEach var="book" items='<%= request.getAttribute("bookList")%>'>
+                </c:if>
+                <c:if test="${bookList != null}">
+				<c:forEach var="book" items="${bookList}">
 					<tr>
 						<td>${book.bookName}</td>
 						<td>${book.author}</td>
@@ -78,7 +80,7 @@
 						<td><a onclick="confirm('确定要删除吗？')" href="/delete?id=${book.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
 					</tr>
 				</c:forEach>
-
+                </c:if>
 			</table>
 
 			<nav aria-label="Page navigation">

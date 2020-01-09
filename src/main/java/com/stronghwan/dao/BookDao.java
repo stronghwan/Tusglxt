@@ -4,10 +4,7 @@ import com.stronghwan.entity.Book;
 import com.stronghwan.entity.PageBean;
 import com.stronghwan.units.DBUnit;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,20 +70,22 @@ public class BookDao {
 
     /**
      * 通过id获取图书
-     * @param id
+     * @param  keyword 关键字
      * @return
      */
-    public Book findById(int id){
+    public List<Book> findById(Integer keyword){
         Connection conn  = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        Book book = new Book();
+
+        List<Book> bookList = new ArrayList<>();
         try {
             conn = DBUnit.getConnection();
-            String sql = "select * from book where id =" + id;
+            String sql = "select * from book where id = " + keyword;
             statement = conn.createStatement();
             resultSet = statement.executeQuery(sql);
-           if (resultSet.next()){
+           while (resultSet.next()){
+               Book book = new Book();
                book.setId(resultSet.getInt("id"));
                book.setBookName(resultSet.getString("bookName"));
                book.setAuthor(resultSet.getString("author"));
@@ -94,6 +93,7 @@ public class BookDao {
                book.setIsbn(resultSet.getString("isbn"));
                book.setCategory(resultSet.getString("category"));
                book.setPrice(resultSet.getDouble("price"));
+               bookList.add(book);
            }
         } catch (Exception e) {
             e.getStackTrace();
@@ -101,9 +101,44 @@ public class BookDao {
         finally {
             DBUnit.release(resultSet,statement,conn);
         }
-        return book;
+        return bookList;
     }
+    /**
+     * 搜索图书
+     * @param  keyword 关键字
+     * @return
+     */
+    public List<Book> search(String keyword){
+        Connection conn  = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
 
+        List<Book> bookList = new ArrayList<>();
+        try {
+            conn = DBUnit.getConnection();
+            String sql = "select * from book where bookName like  ?";
+            statement = conn.prepareStatement(sql);
+            statement.setString(1,"%"+keyword+"%");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Book book = new Book();
+                book.setId(resultSet.getInt("id"));
+                book.setBookName(resultSet.getString("bookName"));
+                book.setAuthor(resultSet.getString("author"));
+                book.setPress(resultSet.getString("press"));
+                book.setIsbn(resultSet.getString("isbn"));
+                book.setCategory(resultSet.getString("category"));
+                book.setPrice(resultSet.getDouble("price"));
+                bookList.add(book);
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        finally {
+            DBUnit.release(resultSet,statement,conn);
+        }
+        return bookList;
+    }
     /**
      * 获取分页图书
      * @return

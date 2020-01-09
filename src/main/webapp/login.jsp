@@ -22,7 +22,7 @@
 	  <div class='login_title'>
 	    <span>管理员登录</span>
 	  </div>
-	  <form action="{pageContext.request.contextPath}/login" method="post">
+	  <form action="/login" method="post">
 		  <div class='login_fields'>
 			  <div class='login_fields__user'>
 				  <div class='icon'>
@@ -37,7 +37,7 @@
 				  <div class='icon'>
 					  <img alt="" src='img/lock_icon_copy.png'>
 				  </div>
-				  <input name="password" placeholder='密码' maxlength="16" type='text' autocomplete="off">
+				  <input name="password" placeholder='密码' maxlength="16" type='password' autocomplete="off">
 				  <div class='validation'>
 					  <img alt="" src='img/tick.png'>
 				  </div>

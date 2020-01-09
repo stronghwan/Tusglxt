@@ -44,17 +44,16 @@ public class TUserDao {
             statement = connection.createStatement();
             String sql = "select * from tuser where username = '"+tUser.getUsername()+"' and password='"+tUser.getPassword()+"'";
             resultSet =  statement.executeQuery(sql);
-           if (resultSet.next()){
+           while (resultSet.next()){
                resultTUser.setId(resultSet.getInt("id"));
                resultTUser.setUsername(resultSet.getString("username"));
                resultTUser.setPassword(resultSet.getString("password"));
            }
-            return resultTUser;
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
             DBUnit.release(resultSet,statement,connection);
         }
-        return null;
+        return resultTUser!= null ? resultTUser : null;
     }
 }

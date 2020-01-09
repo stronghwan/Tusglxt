@@ -21,16 +21,15 @@ import java.util.List;
 @WebServlet(urlPatterns = "/findBookByIdServlet")
 public class FindBookByIdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String id = request.getParameter("keyword");
+            String keyword = request.getParameter("keyword");
             List<Book> bookList = new ArrayList<>();
-            if (StringUtils.isNotBlank(id)){
-                Integer resultId = Integer.parseInt(id);
+            if (StringUtils.isNotBlank(keyword)){
                 BookDao bookDao = new BookDao();
-                Book book = bookDao.findById(resultId);
+                List<Book> book = bookDao.search(keyword);
                 if (book != null){
-                    bookList.add(book);
-                    request.setAttribute("bookList",bookList);
-                    request.getRequestDispatcher("/list.jsp").forward(request,response);
+
+                    request.setAttribute("bookList",book);
+                    request.getRequestDispatcher("/search.jsp").forward(request,response);
                 }
             }
     }
